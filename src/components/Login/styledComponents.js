@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
 export const LoginContainer = styled.div`
+  background-color: ${props =>
+    props.theme === 'dark' ? '#0f0f0f' : '#f9f9f9'};
   height: 100vh;
   padding: 0px;
   display: flex;
@@ -10,27 +12,24 @@ export const LoginContainer = styled.div`
 `
 
 export const LoginCardContainer = styled.div`
+  background-color: ${props => (props.theme === 'dark' ? 'black' : 'white')};
+  box-shadow: 0px 0px 5px #00000050;
+  border-radius: 15px;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0px 0px 11px 1px rgba(0, 0, 0, 0.14);
-  padding: 40px 20px;
-  border-radius: 10px;
+  padding: 20px;
   @media screen and (min-width: 768px) {
     min-width: 25%;
     max-width: 30%;
   }
 `
-export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  padding-top: 10px;
-  width: 90%;
-`
+
 export const WebsiteLogo = styled.img`
-  width: 200px;
+  width: 250px;
   @media screen and (min-width: 768px) {
-    width: 50%;
+    width: 80%;
   }
 `
 
@@ -38,39 +37,43 @@ export const Label = styled.label`
   text-align: left;
   align-self: flex-start;
   font-size: 14px;
-  padding: 15px 20px 3px 0px;
+  padding: 0px 20px 15px 0px;
   font-family: Roboto;
+  color: ${props => (props.theme === 'dark' ? 'white' : '#475569')};
   font-weight: 600;
-  color: #475569;
 `
+
 export const LoginInput = styled.input`
   width: 100%;
   height: 35px;
   padding-left: 10px;
-  border: 1px solid #94a3b8;
+  background-color: ${props => (props.theme === 'dark' ? 'black' : 'white')};
+  border: 1px solid;
+  border-color: #94a3b8;
   border-radius: 5px;
   margin-top: 5px;
+  color: ${props => (props.theme === 'dark' ? 'white' : 'black')};
   margin-bottom: 10px;
   outline: none;
-  color: black;
+`
+export const Form = styled.form`
+  padding-top: 10px;
 `
 export const ShowPasswordLabel = styled.label`
-  color: black;
-  font-weight: 400;
-  font-family: roboto;
+  color: ${props => (props.theme === 'dark' ? 'white' : 'black')};
 `
 
 export const LoginButton = styled.button`
-  background-color: #3b82f6;
-  color: white;
   width: 100%;
-  border: none;
-  padding: 7px 0px;
-  border-radius: 8px;
   margin-top: 12px;
-  font-family: roboto;
-  font-size: 15px;
+  padding: 7px 0px 7px 0px;
+  border-radius: 8px;
+  border: none;
+  background-color: #3b82f6;
+  color: #ffffff;
   font-weight: 500;
+  font-family: Roboto;
+  font-size: 15px;
 `
 export const ErrorMsg = styled.p`
   color: #ff0000;

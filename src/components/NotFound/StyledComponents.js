@@ -22,7 +22,8 @@ export const NotFoundContainer = styled.div`
   align-items: center;
   padding: 10px;
   width: 100%;
-  background-color: '#f9f9f9';
+  background-color: ${props =>
+    props.theme === 'dark' ? '#181818' : '#f9f9f9'};
 `
 
 export const NotFoundImage = styled.img`
@@ -35,5 +36,5 @@ export const NotFoundImage = styled.img`
 export const NotFoundText = styled.h1`
   margin: 0px;
   padding: 5px;
-  color: '#181818';
+  color: ${props => (props.theme === 'dark' ? '#f9f9f9' : '#181818')};
 `

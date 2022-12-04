@@ -1,36 +1,25 @@
 import {Component} from 'react'
-
-import {IoMdClose} from 'react-icons/io'
-import {BsSearch} from 'react-icons/bs'
-
-import Cookies from 'js-cookie'
+import {AiFillFire} from 'react-icons/ai'
 import Loader from 'react-loader-spinner'
+import Cookies from 'js-cookie'
 import Header from '../Header'
 import Sidebar from '../Sidebar'
-import HomeBody from '../HomeBody'
-
+import TrendingVideoCard from '../TrendingVideoCard'
 import ThemeContext from '../../Context/ThemeContext'
 import {
   MainBody,
   SidebarContainer,
-  HomeContainer,
-  GetPremium,
-  BannerLogo,
-  GetItButton,
-  BannerText,
-  CloseButton,
-  SearchInput,
-  SearchContainer,
-  SearchButton,
-  VideosList,
+  TrendingContainer,
+  TrendingMenuContainer,
+  IconContainer,
+  MenuHeading,
   LoaderContainer,
-  FailureImg,
   FailureContainer,
+  FailureImg,
   FailureText,
   RetryButton,
-  NoVideosImg,
-  NoVideosContainer,
-  HomeMainContainer,
+  VideosList,
+  TrendingMainContainer,
 } from './StyledComponents'
 
 const apiStatusConstants = {
@@ -40,12 +29,10 @@ const apiStatusConstants = {
   inProgress: 'IN_PROGRESS',
 }
 
-class Home extends Component {
+class Trending extends Component {
   state = {
-    apiStatus: apiStatusConstants.initial,
-    isPopup: true,
-    searchInput: '',
     videosList: [],
+    apiStatus: apiStatusConstants.initial,
   }
 
   componentDidMount = () => {
@@ -54,9 +41,9 @@ class Home extends Component {
 
   getVideos = async () => {
     this.setState({apiStatus: apiStatusConstants.inProgress})
-    const {searchInput} = this.state
+
     const jwtToken = Cookies.get('jwt_token')
-    const url = `https://apis.ccbp.in/videos/all?search=${searchInput}`
+    const url = 'https://apis.ccbp.in/videos/trending'
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -90,67 +77,13 @@ class Home extends Component {
     }
   }
 
-  onClickCloseBanner = () => {
-    this.setState({isPopup: false})
-  }
-
-  adPopup = () => (
-    <GetPremium data-testid="banner">
-      <CloseButton
-        type="button"
-        data-testid="close"
-        onClick={this.onClickCloseBanner}
-      >
-        <IoMdClose size={16} />
-      </CloseButton>
-      <BannerLogo
-        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-        alt="nxt watch logo"
-      />
-      <BannerText>Buy Nxt Watch Premium prepaid plans with UPI</BannerText>
-      <GetItButton>GET IT NOW </GetItButton>
-    </GetPremium>
-  )
-
-  updateSearchInput = event => {
-    this.setState({searchInput: event.target.value})
-  }
-
-  noVideosView = () => (
-    <ThemeContext.Consumer>
-      {value => {
-        const {isDarkTheme} = value
-        const theme = isDarkTheme ? 'dark' : 'light'
-        return (
-          <NoVideosContainer>
-            <NoVideosImg
-              src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
-              alt="no videos"
-            />
-            <FailureText theme={theme}>No search results found</FailureText>
-            <FailureText theme={theme} as="p">
-              Try different key words or remove search filter
-            </FailureText>
-            <RetryButton type="button" onClick={this.getVideos}>
-              Retry
-            </RetryButton>
-          </NoVideosContainer>
-        )
-      }}
-    </ThemeContext.Consumer>
-  )
-
   successView = () => {
     const {videosList} = this.state
-
-    if (videosList.length === 0) {
-      return this.noVideosView()
-    }
 
     return (
       <VideosList>
         {videosList.map(each => (
-          <HomeBody key={each.id} videoDetails={each} />
+          <TrendingVideoCard videoDetails={each} key={each.id} />
         ))}
       </VideosList>
     )
@@ -211,54 +144,40 @@ class Home extends Component {
         return this.failureView()
       case apiStatusConstants.inProgress:
         return this.loader()
-
       default:
         return null
     }
   }
 
   render() {
-    const {isPopup, searchInput} = this.state
     return (
       <ThemeContext.Consumer>
         {value => {
           const {isDarkTheme} = value
           const theme = isDarkTheme ? 'dark' : 'light'
-          const color = isDarkTheme ? '#f9f9f9' : '#181818'
+
           return (
-            <HomeMainContainer data-testid="home" theme={theme}>
+            <TrendingMainContainer data-testid="trending" theme={theme}>
               <Header />
               <MainBody>
                 <SidebarContainer>
                   <Sidebar />
                 </SidebarContainer>
-                <HomeContainer>
-                  {isPopup && this.adPopup()}
-                  <SearchContainer>
-                    <SearchInput
-                      theme={theme}
-                      type="search"
-                      placeholder="Search"
-                      onChange={this.updateSearchInput}
-                      value={searchInput}
-                    />
-                    <SearchButton
-                      type="button"
-                      theme={theme}
-                      onClick={this.getVideos}
-                      data-testid="searchButton"
-                    >
-                      <BsSearch color={color} />
-                    </SearchButton>
-                  </SearchContainer>
+                <TrendingContainer>
+                  <TrendingMenuContainer theme={theme}>
+                    <IconContainer theme={theme}>
+                      <AiFillFire size={40} color="#ff0b37" />
+                    </IconContainer>
+                    <MenuHeading theme={theme}>Trending</MenuHeading>
+                  </TrendingMenuContainer>
                   {this.checkApiStatus()}
-                </HomeContainer>
+                </TrendingContainer>
               </MainBody>
-            </HomeMainContainer>
+            </TrendingMainContainer>
           )
         }}
       </ThemeContext.Consumer>
     )
   }
 }
-export default Home
+export default Trending

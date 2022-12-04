@@ -1,9 +1,5 @@
 import styled from 'styled-components'
 
-export const HomeMainContainer = styled.div`
-  background-color: #f9f9f9f;
-`
-
 export const MainBody = styled.div`
   @media screen and (min-width: 768px) {
     display: flex;
@@ -12,11 +8,16 @@ export const MainBody = styled.div`
   }
 `
 
-export const SideBarContainer = styled.div`
+export const SidebarContainer = styled.div`
   display: none;
   @media screen and (min-width: 768px) {
     display: block;
   }
+`
+
+export const HomeMainContainer = styled.div`
+  background-color: ${props =>
+    props.theme === 'dark' ? '#181818' : '#f9f9f9'};
 `
 
 export const HomeContainer = styled.div`
@@ -24,8 +25,8 @@ export const HomeContainer = styled.div`
   overflow-x: auto;
   flex-grow: 1;
   padding: 15px;
-  @media screen (max-width: 768px) {
-    min-height: 90%;
+  @media screen and (max-width: 768px) {
+    min-height: 90vh;
   }
 `
 
@@ -35,12 +36,6 @@ export const GetPremium = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
-`
-
-export const CloseButton = styled.button`
-  background-color: transparent;
-  border: none;
-  align-self: flex-end;
 `
 
 export const BannerLogo = styled.img`
@@ -61,39 +56,43 @@ export const GetItButton = styled.button`
   font-weight: 700;
   font-family: Roboto;
 `
+export const CloseButton = styled.button`
+  background-color: transparent;
+  border: none;
+  align-self: flex-end;
+`
+
+export const SearchInput = styled.input`
+  height: 30px;
+  flex-grow: 1;
+  border: 1px solid ${props => (props.theme === 'dark' ? '#f9f9f9' : '#181818')};
+  color: ${props => (props.theme === 'dark' ? '#f9f9f9' : '#181818')};
+  padding-left: 10px;
+  background-color: transparent;
+  outline: none;
+`
 export const SearchContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
+  flex-direction: row;
   align-items: center;
   padding: 8px 0px 8px 0px;
   @media screen and (min-width: 768px) {
     width: 40%;
   }
 `
-export const SearchInput = styled.input`
-  height: 30px;
-  flex-grow: 1;
-  border: 1px solid #181818;
-  color: #181818;
-  outline: none;
-  padding-left: 10px;
-  background-color: transparent;
-`
-
 export const SearchButton = styled.button`
   background-color: transparent;
-  padding: 5px 20px;
   height: 30px;
-  border: 1px solid #181818;
+  width: 70px;
+  padding-top: 4px;
+  border: 1px solid ${props => (props.theme === 'dark' ? '#f9f9f9' : '#181818')};
 `
-
 export const VideosList = styled.ul`
   list-style: none;
   padding: 0px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 100%;
 `
 
 export const LoaderContainer = styled.div`
@@ -115,10 +114,11 @@ export const FailureImg = styled.img`
     width: 50%;
   }
 `
+
 export const FailureText = styled.h1`
   margin: 0px;
   padding: 5px;
-  color: '#181818';
+  color: ${props => (props.theme === 'dark' ? '#f9f9f9' : '#181818')};
 `
 export const RetryButton = styled.button`
   background-color: #4f46e5;
@@ -131,4 +131,5 @@ export const RetryButton = styled.button`
 `
 
 export const NoVideosContainer = styled(FailureContainer)``
+
 export const NoVideosImg = styled(FailureImg)``

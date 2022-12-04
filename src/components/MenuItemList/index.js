@@ -3,7 +3,7 @@ import {AiFillHome, AiFillFire} from 'react-icons/ai'
 import {IoLogoGameControllerB} from 'react-icons/io'
 import {RiMenuAddLine} from 'react-icons/ri'
 
-import ActiveMenuContext from '../../context/ActiveMenuContext'
+import ActiveMenuContext from '../../Context/ActiveMenuContext'
 import {MenuList, MenuLink, MenuHeading} from './styledComponents'
 
 const activeMenuConstants = {
