@@ -650,4 +650,4 @@ console.log(formatDistanceToNow(new Date(2021, 8, 20)))
 
 
 
-> Live project link :https://satishnxtwatch.ccbp.tech/ 
+> Live project link : https://satishnxtwatch.ccbp.tech/ 
